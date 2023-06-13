@@ -16,13 +16,23 @@ export default function CardList(props) {
         owner_id = props.owner_id
     }
     // console.log(owner_id)
-    const list = props.cardlist.filter((card) => {
+    var list = props.cardlist.filter((card) => {
         if (owner_id === -1) return true
         else {
             if (owner_id === card.owner_id) return true
             return false
         }
     });
+    console.log(list);
+    if (props.search !== "") {
+        list = list.filter((card) => card.name.toLowerCase().startsWith(props.search));
+    }
+    console.log(list);
+    if ((props.filter !== "" && props.filter !== "all")) {
+        list = list.filter((card) => card.card_type === props.filter);
+    }
+    console.log(list);
+
     const newlist = list.map((card) => {
         return <Card card={card} />
     })
