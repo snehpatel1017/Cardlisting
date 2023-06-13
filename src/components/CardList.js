@@ -1,7 +1,7 @@
 import Card from "./Card"
 import { useRef } from "react"
 export default function CardList(props) {
-    // console.log(props.cardlist)
+    console.log(props.empty)
     const inputEl = useRef("");
     const searchRef = useRef("");
     function getSecrchterm() {
@@ -15,7 +15,7 @@ export default function CardList(props) {
 
         owner_id = props.owner_id
     }
-    console.log(owner_id)
+    // console.log(owner_id)
     const list = props.cardlist.filter((card) => {
         if (owner_id === -1) return true
         else {
@@ -30,8 +30,11 @@ export default function CardList(props) {
         <div className="main">
             <div className="ui search">
                 <div className="ui icon input">
-                    <input ref={inputEl} type="text" className="promt" value={props.term} onChange={getSecrchterm} />
+                    <input ref={inputEl} type="text" className="promt" onChange={getSecrchterm} />
                     <i className="search icon" />
+
+                </div>
+                <div>
                     <select onChange={getFilter} ref={searchRef} >
                         <option value="all">All</option>
                         <option value="burner">Burner</option>
@@ -39,8 +42,8 @@ export default function CardList(props) {
                     </select>
                 </div>
             </div>
+            {props.empty === "No data Found" ? (<div>{props.empty}</div>) : (<div className="ui celled list App"> {newlist}</div>)}
 
-            <div className="ui celled list App"> {newlist}</div>
         </div>
 
     );
